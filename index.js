@@ -36,7 +36,7 @@ app.get('/create-webhook', async (req, res) => {
     
     let body = {
         "webhook": {
-            "address": "http://59f7-186-84-232-67.ngrok.io/order-notify",
+            "address": "https://gradiweb-services-test-fytu3.ondigitalocean.app/order-notify",
             "topic": "orders/create",
             "format": "json"
         }
@@ -50,8 +50,8 @@ app.get('/create-webhook', async (req, res) => {
 
 })
 
-app.post('/order-notify', async () => {
-
+app.post('/order-notify', async (req, res) => {
+    console.log(req)
 })
 
 app.listen(8080, () => {
