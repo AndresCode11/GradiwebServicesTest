@@ -3,8 +3,10 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const fetch = require('node-fetch');
 
+app.use(bodyParser.json())
 app.use(cors())
 
 const headers = {
@@ -50,9 +52,9 @@ app.get('/create-webhook', async (req, res) => {
 
 })
 
-app.post('/order-notify', async (req, res) => {
+app.post('/order-notify', (req, res) => {
     console.log(req.body)
-    
+
 })
 
 app.listen(8080, () => {
