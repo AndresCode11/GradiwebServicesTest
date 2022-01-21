@@ -51,7 +51,8 @@ app.get('/create-webhook', async (req, res) => {
 })
 
 app.post('/order-notify', async (req, res) => {
-    console.log(req)
+    console.log(req.body)
+    
 })
 
 app.listen(8080, () => {
