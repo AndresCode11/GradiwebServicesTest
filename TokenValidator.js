@@ -1,7 +1,7 @@
 require('dotenv').config()
 const crypto = require('crypto');
 
-export class TokenValidator
+class TokenValidator
 {
     constructor() {
         
