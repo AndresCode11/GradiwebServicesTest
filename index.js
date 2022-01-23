@@ -8,7 +8,7 @@ const fetch = require('node-fetch');
 const { TokenValidator } = require("./TokenValidator")
 const getRawBody = require('raw-body')
 
-app.use(bodyParser.json())
+//app.use(bodyParser.json())
 app.use(cors())
 
 const headers = {
@@ -58,11 +58,10 @@ app.get('/create-webhook', async (req, res) => {
 app.post('/order-notify', async (req, res) => {
 
     const hmac = req.header("X-Shopify-Hmac-Sha256");
-    console.log(hmac)
     const tokenValidator = new TokenValidator();
     const body = await getRawBody(req)
     const verified = tokenValidator.verifyWebhook(body, hmac);
-
+    
     if(verified) {
         console.log('OK')
     } else {
