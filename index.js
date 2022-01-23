@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const fetch = require('node-fetch');
+const { TokenValidator } = require("./TokenValidator")
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -52,9 +53,19 @@ app.get('/create-webhook', async (req, res) => {
 
 })
 
+// ORDER WEBHOOK
 app.post('/order-notify', (req, res) => {
-    console.log(req.body)
 
+    const hmac = req.header("X-Shopify-Hmac-Sha256");
+    const tokenValidator = new TokenValidator();
+    const verified = tokenValidator.verifyWebhook(req.body, hmac);
+
+    if(verified) {
+        console.log('OK')
+    } else {
+        console.log("NOT VALID")
+    }
+    
 })
 
 app.listen(8080, () => {
