@@ -7,11 +7,10 @@ class TokenValidator
         
     }
 
-    verifyWebhook(payload, hmac) {
-        const message = payload.toString();
+    verifyWebhook(body, hmac) {
         const genHash = crypto
           .createHmac("sha256", process.env.API_SECRET)
-          .update(message)
+          .update(body)
           .digest("base64");
           
         return genHash === hmac;
