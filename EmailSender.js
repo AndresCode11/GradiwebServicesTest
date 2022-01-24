@@ -20,6 +20,8 @@ class EmailSender {
             }
         })
 
+        console.log(process.env.EMAIL_PASSWORD)
+
     }
 
     sendEmail(email, customerData, host) {
