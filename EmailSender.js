@@ -12,8 +12,8 @@ class EmailSender {
 
         // Create Conection 
         this.transporter = nodemailer.createTransport({
-            service: 'gmail',
-            host: 'smtp.gmail.com',
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
             auth: {
               user: process.env.EMAIL,
               pass: process.env.EMAIL_PASSWORD
