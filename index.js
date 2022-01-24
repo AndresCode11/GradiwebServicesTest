@@ -69,7 +69,7 @@ app.post('/order-notify', async (req, res) => {
     const verified = tokenValidator.verifyWebhook(req.body, hmac);
     
     console.log(req.body.toString())
-    //if(verified) {
+    if(verified) {
         console.log('OK')
         const data = req.body.toString();
         const payload = JSON.parse(data);
@@ -84,9 +84,9 @@ app.post('/order-notify', async (req, res) => {
             res.json({status: 'ok'})
         }
 
-    //} else {
+    } else {
         //console.log("NOT VALID")
-    //}
+    }
     
 })
 
