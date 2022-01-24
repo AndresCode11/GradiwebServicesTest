@@ -13,10 +13,6 @@ class TokenValidator
         .update(body, 'utf8', 'hex')
         .digest('base64')
 
-        console.log(hash)
-        console.log(hmac)
-        console.log(process.env.WEBHOOK_SIGNATURE)
-        // Compare our hash to Shopify's hash
         return hash === hmac
         // It's a match! All good
     }
