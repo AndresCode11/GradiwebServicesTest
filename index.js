@@ -4,12 +4,18 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
 const { TokenValidator } = require("./TokenValidator")
-const getRawBody = require('raw-body')
+const { EmailSender } = require("./EmailSender")
+const path = require('path')
 
-app.use(bodyParser.raw({ type: "application/json" }));
+// BODY PARSER
+app.use(bodyParser.raw({ type: "application/json" }))
+// CORS
 app.use(cors())
+// PUBLIC FOLDER
+app.use(express.static('public'));
+
 
 const headers = {
     'Content-Type': 'application/json',
@@ -63,18 +69,28 @@ app.post('/order-notify', async (req, res) => {
     const verified = tokenValidator.verifyWebhook(req.body, hmac);
     
     console.log(req.body.toString())
-    if(verified) {
+    //if(verified) {
         console.log('OK')
         const data = req.body.toString();
         const payload = JSON.parse(data);
-        console.log(data)
-    } else {
-        console.log("NOT VALID")
-    }
+
+        // user Data
+        const {email, state} = payload.customer
+
+        // Validate State
+        if(state == 'disabled') {
+            const emailSender = new EmailSender();
+            emailSender.sendEmail(email, payload.customer, req.header('host'))
+            res.json({status: 'ok'})
+        }
+
+    //} else {
+        //console.log("NOT VALID")
+    //}
     
 })
 
-app.listen(8080, () => {
+app.listen(8081, () => {
     console.log('ready')
     console.log(process.env.API_KEY)
 })
