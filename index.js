@@ -80,7 +80,7 @@ app.post('/order-notify', async (req, res) => {
         // Validate State
         if(state == 'disabled') {
             const emailSender = new EmailSender();
-            emailSender.sendEmail(email, payload.customer, req.header('host'))
+            emailSender.sendEmail(email, payload.customer, 'https://' + req.header('host'))
             res.json({status: 'ok'})
         }
 
