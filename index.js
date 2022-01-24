@@ -65,6 +65,7 @@ app.post('/order-notify', async (req, res) => {
     
     if(verified) {
         console.log('OK')
+        console.log(req.body)
     } else {
         console.log("NOT VALID")
     }
