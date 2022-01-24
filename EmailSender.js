@@ -35,7 +35,7 @@ class EmailSender {
         const emailOptions = {
             from: process.env.EMAIL,
             to: email,
-            subject: '',
+            subject: 'Activa tu cuenta !!',
             template: 'test',
             html: htmlToSend
         }
