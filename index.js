@@ -57,15 +57,17 @@ app.get('/create-webhook', async (req, res) => {
 // ORDER WEBHOOK
 app.post('/order-notify', async (req, res) => {
 
-    const data = req.body.toString();
     const hmac = req.header("X-Shopify-Hmac-Sha256");
     const tokenValidator = new TokenValidator();
     //const body = await getRawBody(req)
     const verified = tokenValidator.verifyWebhook(req.body, hmac);
     
+    console.log(req.body.toString())
     if(verified) {
         console.log('OK')
-        console.log(req.body)
+        const data = req.body.toString();
+        const payload = JSON.parse(data);
+        console.log(data)
     } else {
         console.log("NOT VALID")
     }
