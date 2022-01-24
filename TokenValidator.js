@@ -9,7 +9,7 @@ class TokenValidator
 
     verifyWebhook(body, hmac) {
         const hash = crypto
-        .createHmac('sha256', '7b0a666b10c36016806ab04594cc298ef0c7660499ae1a1dcca57350990e8ab5')
+        .createHmac('sha256', process.env.WEBHOOK_SIGNATURE)
         .update(body, 'utf8', 'hex')
         .digest('base64')
 
